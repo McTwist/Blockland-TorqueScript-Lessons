@@ -1,0 +1,257 @@
+\section{Starting is Slow}
+
+Like any language, starting to learn a language is slow and in most cases, troublesome. However, a programming language is a bit easier to learn, but harder to master. The reason for this is that one must first know simple English language, basic maths and advanced logic thinking.
+
+To wrap it around quickly, the English language is good to know as most syntax relies on it. The basic maths is good to know for simple algebraic solutions. One could of course need more advanced maths, but this course does not aim such a thing.
+
+For the advanced logic, one need to know this to be able to tell the computer exactly what it should do. It’s extremely rare that a computer is disobedient. If one always assume it will do as told, a program could easily be structured in a logical way to make advanced instructions to the computer.
+% Disobedient: Read: Not working correctly
+
+\subsection{Variables}
+
+First thing to bring up is variables. Think these as labelled containers that will hold any datum one want to store within it. Most commonly this includes, but are not restricted to: \firstfound{numbers}, \firstfound{strings} and \firstfound{objects}.
+% Datum: Singular to data
+
+\important{Numbers} could either be integer or decimal numbers. These are usually represented with the ordinary base 10 system. One could of course make use of hexadecimal, octagonal and even binary to represent a number. These are left as an exercise to the reader.
+
+\important{Strings} are used to store text. It could contain anything that can be stored as a character. This includes new line, space, even backspace.
+
+\important{Objects} will be mentioned more further down.
+
+To store a value to a variable, one could write like so.
+
+\begin{algorithm}[H]
+	\begin{algorithmic}[1]
+		\State $age \gets 18$
+	\end{algorithmic}
+\end{algorithm}
+
+This will store the number 18 into the variable \code{age}. This makes it possible to temporarily store data within the program so the user experience is different depending on the variables content.
+
+This can also be used with strings.
+
+\begin{algorithm}[H]
+	\begin{algorithmic}[1]
+		\State $name \gets "Jones"$
+	\end{algorithmic}
+\end{algorithm}
+
+This will store the text \code{Jones} within the variable \code{name}. Take a note in the quotation marks, as those are used to define a string. Anything within those quotation marks will be stored within the variable.
+
+\subsection{Operators}
+
+Naturally, one could not make use of the variables unless one got some sort of modifier. In comes the operators. Most of them are maths operators, but there is some that is specific to the computer. This section will only go through the maths ones, which is also called the \important{arithmetic} operators.
+
+First is the \firstfound{assignment} (\code{=}) operator. It was used briefly in previous section to assign a value to a variable. It is visualized with an equal sign. As long as a variable is on the left side, any value on the right will be assigned to it.
+
+\begin{algorithm}[H]
+	\begin{algorithmic}[1]
+		\State $x \gets 4$
+	\end{algorithmic}
+\end{algorithm}
+
+Moreover are \important{addition} (\code{+}), \important{subtraction} (\code{-}), \important{multiplication} (\code{*}) and \important{division} (\code{/}).
+
+\begin{algorithm}[H]
+	\begin{algorithmic}[1]
+		\State $x \gets 4 + 2$
+		\State $y \gets 4 - 2$
+		\State $z \gets 4 * 2$
+		\State $w \gets 4 / 2$
+	\end{algorithmic}
+\end{algorithm}
+
+This will result in each variable of \code{x}, \code{y}, \code{z} and \code{w} to contain 6, 2, 8 and 2 respectively. There is also this operator called \important{modulus} (\code{\%}) that is used to get the remainder from a division. How it is used is left as an exercise to the reader.
+
+Along with the arithmetic operators, there is also the \important{relational} operators. These are used to compare values. These are \important{equal} (\code{==}), \important{less than} (\code{<}), \important{greater than} (\code{>}), \important{less equal} (\code{<=}), \important{greater equal} (\code{>=}) and \important{not equal} (\code{!=}). Even if they sound somewhat the same, they actually are used in different manners, depending on what one is aiming for.
+
+\begin{algorithm}[H]
+	\begin{algorithmic}[1]
+		\State $1 = 1$
+		\State $1 < 1$
+		\State $1 > 1$
+		\State $1 \leq 1$
+		\State $1 \geq 1$
+		\State $1 \neq 1$
+	\end{algorithmic}
+\end{algorithm}
+
+Each one of these will give a \firstfound{boolean} value: \code{true} or \code{false}. From the top: \code{true}, \code{false}, \code{false}, \code{true}, \code{true}, \code{false}. To explain this, the first one is 1 equals 1, which they are the same. Then is two false, because 1 is neither bigger or smaller than 1. The two following is true even if it checks for values bigger or smaller, as it also checks if they are the same as well, which they are. The last one is checking if they are not equal, which they are not.
+Of course one could put in variables in there, to see if its value relation to an another value.
+
+\begin{algorithm}[H]
+	\begin{algorithmic}[1]
+		\State $x \gets 1$
+		\State $y \gets 2$
+		\State $y \neq x$
+	\end{algorithmic}
+\end{algorithm}
+
+This will make the third statement to be true, as the value of \code{y} (2) is not equal the value of \code{x} (1).
+
+\subsection{Conditions}
+
+While setting variables and do operations on them, one cannot do anything unless there is some way to change the program flow. In comes conditions.
+
+\begin{algorithm}[H]
+	\begin{algorithmic}[1]
+		\State $x \gets 1$
+		\If{$x > 0$}
+			\State $x \gets 0$
+		\EndIf
+	\end{algorithmic}
+\end{algorithm}
+
+This will first prepare the variable \code{x}. Then it will check with if its value is bigger than 0. As this is the case, the \important{\code{if}}-condition will then check if the value is \code{true}, and if so it will execute the next statements. The \important{\code{then}} is only used to mark the start of a code block. The \important{\code{end}} is closing the previously mentioned code block. A code block is a bunch of statements grouped together.
+
+It is worth noting that the third statement is \important{indented}. This is only to visually tell everyone that reads this that this belongs to the statement preceding it. That is, it makes it a lot easier to understand the code-flow. In some languages, indentation is a requirement.
+
+Along with the if-statement, there is two more normal conditions that one should use. They are \important{\code{else}} and \important{\code{else if}}. The \code{else} is only executed if the preceding conditions were \code{false}. Of course the \code{else if} looks like it is \code{else} and \code{if} concatenated together, but in most languages they are actually split apart.
+
+\begin{algorithm}[H]
+	\begin{algorithmic}[1]
+		\State $x \gets 3$
+		\State $y \gets 4$
+		\State $z \gets 3$
+		\If{$x = y$}
+			\State $y \gets z$
+		\ElsIf{$x = z$}
+			\State $z \gets y$
+		\Else
+			\State $x \gets y$
+		\EndIf
+	\end{algorithmic}
+\end{algorithm}
+
+We got three variables with values. Two of them are checked if they are equal. If they are, then it will run the next statement. In this case, it is not and will skip the next code block and go for the next condition. Here it is also is false, so it will proceed to the last code block and execute it.
+
+\subsection{Loops}
+
+After getting to know how to change the flow of the program by jumping to statements that should be executed, one could easily make a program like this.
+
+\begin{algorithm}[H]
+	\begin{algorithmic}[1]
+		\State $n \gets 1$
+		\State $x \gets 1$
+		\State \textcolor{highlightred}{$x \gets x * n$}
+		\State \textcolor{highlightred}{$n \gets n + 1$}
+		\State $x \gets x * n$
+		\State $n \gets n + 1$
+		\State $x \gets x * n$
+		\State $n \gets n + 1$
+		\State $x \gets x * n$
+	\end{algorithmic}
+\end{algorithm}
+
+However, this is duplicated code, highlighted in red. There is a way to make this way shorter and easier to manage. In comes \important{loops}.
+
+\begin{algorithm}[H]
+	\begin{algorithmic}[1]
+		\State $n \gets 1$
+		\State $x \gets 1$
+		\While{$n \leq 4$}
+			\State $x \gets x * n$
+			\State $n \gets n + 1$
+		\EndWhile
+	\end{algorithmic}
+\end{algorithm}
+
+The \important{\code{while}}-statement will repeat its code block until its condition is false. Its condition is checked first, and then each time it repeats its code block. This generates the same result as the previous example.
+
+There is also a loop that make the logic of the example even easier to understand. The \important{\code{for}}-loop is one of the most used loops, as it will easily handle your \important{iterator}. An iterator is exactly what the variable \code{n} is doing in the examples. It will increase by a certain amount of number and then be used to run a code block a certain amount of times or get data from a list or variables.
+
+\begin{algorithm}[H]
+	\begin{algorithmic}[1]
+		\State $x \gets 1$
+		\For{$n \gets 1$ to $5$}
+			\State $x \gets x * n$
+		\EndFor
+	\end{algorithmic}
+\end{algorithm}
+
+For variable \code{n}, set the value of 1 and iterate it one step until value is equal or higher than 5. There is several variants of this, but this document will only use this version as it is most used that way.
+
+\subsection{Functions}
+% Functions: Write more about the difference of parameters and arguments
+
+Functions are code blocks that one could send in certain variables and execute and then return from where it was called from. The biggest advantages of them is to move out algorithms into them and to reduce duplicate code and reuse them.
+
+\begin{algorithm}[H]
+	\begin{algorithmic}[1]
+		\Function{add}{$x$, $y$}
+			\State $z \gets x + y$
+			\Return $z$
+		\EndFunction
+	\end{algorithmic}
+\end{algorithm}
+
+This function can then be called upon.
+
+\begin{algorithm}[H]
+	\begin{algorithmic}[1]
+		\State $x \gets 5$
+		\State $z \gets 4$
+		\State $y \gets$ \Call{add}{$x$, $z$}
+	\end{algorithmic}
+\end{algorithm}
+
+Basically, \code{x} and \code{z} is set to a value each. Their value is then sent into the function \code{add}, and now the program flow is moved into there. From there is creates two other variables, and then do some addition and send it into a third variable. Its value is then returned from the function. The program flow will then be moved back to where it was called and the returned value will be assigned to \code{y}.
+
+Keep in mind here that the variables within add does not affect the variables outside of it. These are called \important{local variables}. The name of the parameters could be anything, as they are created like normal variables and assigned the values that are sent into the function, in order.
+
+\begin{algorithm}[H]
+	\begin{algorithmic}[1]
+		\Function{sum}{$a$}
+			\If{$a < 1$}
+				\Return $a$
+			\EndIf
+			\Return \Call{sum}{$a - 1$}$ + a$
+		\EndFunction
+	\end{algorithmic}
+\end{algorithm}
+
+This function will be called with a number contained within \code{a}. It will then check if it is less than 1. If not, it will continue and call itself. This will continue until \code{a} is less than one, which it then will return normally. All accumulates of \code{a} from each call to sum will then be added together, resulting into \code{a} sum of 0 up to the value of \code{a} in the first call to sum.
+
+\code{sum} is called a \important{recursive} function. This applies whenever a function calls itself directly or indirectly. Indirectly is done when a function first calls another function that in turn calls the first function.
+
+As previously mentioned, each call to the function will create a new set of local variables that does not affect the previous result. This means that the variable \code{a} will be created anew with a new value for that function call.
+
+To make this a bit simpler to understand, the previous section example will be used with recursion instead of a \code{for}-loop.
+
+\begin{algorithm}[H]
+	\begin{algorithmic}[1]
+		\Function{factorial}{$n$}
+			\If{$n \leq 1$}
+				\Return $n$
+			\EndIf
+			\Return \Call{factorial}{$n - 1$}$ * n$
+		\EndFunction
+	\end{algorithmic}
+\end{algorithm}
+
+This will return the same result as the previous example.
+
+\begin{algorithm}[H]
+	\begin{algorithmic}[1]
+		\State $x \gets$ \Call{factorial}{$4$}
+	\end{algorithmic}
+\end{algorithm}
+
+Worth noting is that even if recursive functions are really helpful, it is really easy to make it go indefinitely, if not careful. Most languages does not like to call too many functions, and will crash if going too deep.
+
+\subsection{Objects}
+
+Sometimes there is a mess keeping track on variables. It even gets worse when one needs to, for instance, handle several persons with their respective age and name. Here is where \important{objects} are helpful.
+Objects are like variables, a container. But instead of values, they contain variables. One could then easily move around groups of data about certain types.
+
+\begin{algorithm}[H]
+	\begin{algorithmic}[1]
+		\State $person \gets$ new Person
+		\State $person.age \gets 45$
+		\State $person.name \gets "James"$
+	\end{algorithmic}
+\end{algorithm}
+
+The first statement will create a \important{\code{new}} object called Person and store it within the variable \code{person}. Then it will use the \important{dot}(\code{.})-operator to access two of its variables, \code{age} and \code{name}, and then assign them values.
+
+Worth noting is that both the \code{new}-operator and dot-operator is not used in some languages, but are used here to explain how objects are used more easily. For example, some languages uses functions to both create objects and access their variables.

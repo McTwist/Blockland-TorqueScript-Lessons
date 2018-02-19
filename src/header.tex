@@ -1,0 +1,37 @@
+% Header to be put in all documents
+\documentclass[11pt]{paper}
+\usepackage{geometry}
+\geometry{a4paper}
+
+\usepackage{fancyhdr}
+\usepackage[parfill]{parskip}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{graphicx}
+\usepackage{xcolor}
+
+\usepackage[hyphens]{url}
+\usepackage{hyperref}
+
+\usepackage{etoolbox}
+\usepackage{amsmath}
+\usepackage{algorithm}
+\usepackage{algorithmicx}
+\usepackage{algpseudocode}
+
+\graphicspath{{../imgs/}}
+
+% Coloring
+\definecolor{linkcolor}{HTML}{3f1f00}
+\definecolor{highlightred}{HTML}{8e0000}
+
+\hypersetup{
+	colorlinks = true,
+	allcolors = linkcolor
+}
+
+% Making naming convention somewhat easier
+% Note: Might later on force to highlight syntax
+\newcommand{\code}[1]{\texttt{#1}}
+\newcommand{\firstfound}[1]{\textit{#1}}
+\newcommand{\important}[1]{\textbf{#1}}
