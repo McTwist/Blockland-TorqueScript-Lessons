@@ -1,0 +1,46 @@
+% Defining the standard of TorqueScript
+
+% Keep track of the grammar and syntax
+\lstdefinelanguage{TorqueScript} {
+	keywords={
+		new, true, false,
+		function, return,
+		if, else,
+		while, for,
+		switch, switch\$, case, default,
+		datablock, package,
+	},
+	keywords=[2]{
+		@, SPC, TAB, NL,
+	},
+	sensitive=false,
+	alsodigit={-},
+	comment=[l]{//},
+	string=[b]",
+	morestring=[b]',
+}
+
+% Keep track of displaying it
+\lstdefinestyle{ts} {
+	language=TorqueScript,
+	basicstyle=\small\ttfamily,
+	numbers=left,
+	numbersep=5pt,
+	tabsize=4,
+	breaklines=true,
+	keywordstyle=\color{blue}\bfseries,
+	keywordstyle=[2]\color{violet}\ttfamily,
+	frame=tb,
+	commentstyle=\color{darkgray}\itshape,
+	stringstyle=\color{red}\ttfamily,
+	showspaces=false,
+	showtabs=false,
+	xleftmargin=17pt,
+	framexleftmargin=17pt,
+	framexrightmargin=5pt,
+	framextopmargin=4pt,
+	framexbottommargin=4pt,
+	showstringspaces=false,
+}
+
+
