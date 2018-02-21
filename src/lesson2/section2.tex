@@ -1,0 +1,349 @@
+\section{Old Frontiers}
+
+As the name TorqueScript implies, it is a scripting language. The performance might not be so good, but the power is in its versatility to add new code as the program go. In Blockland, for example, the scripts are not only loaded when a program starts up. One could easily load a script while the program is running, directly changing how the program flow. The method that makes it possible to do this is called \firstfound{parsing}.
+
+\subsection{Heads up}
+
+There is some caveats that adjusts the previous lesson a bit due to how this language works. Keep in mind that some of these are for most languages.
+
+First, is that a statement should always end with a \important{semicolon} (\code{;}). There is of course exceptions when this is not needed, and that is code blocks from \firstfound{functions}, \firstfound{conditions} and \firstfound{loops}.
+
+The biggest rule when it comes to naming conventions for variables, functions and objects, is that all of those are \firstfound{case-insensitive}. But worth noting is that a name can only consist of the first letter as an ASCII character, a to z and A to Z, and all the rest characters may also include numbers. There is exceptions, however.
+
+Last thing, whitespaces, as long not within strings, are only used to separate words from one another, but other than that, they are ignored completely.
+
+\subsection{Comments}
+
+All programs have some way to document itself, and that is handled with \firstfound{comments}. These are used, and should be used, to comment code to make the flow easier to understand. It also explains how certain algorithms works for future reference and for other that will read it.
+
+\begin{lstlisting}[style=ts]
+// This is a single line comment
+// The next line
+\end{lstlisting}
+
+Everything to the right of that comment is ignored by the parser. Everything on the left is parsed normally.
+
+\textbf{Please note that even if the reference brings up multiline comments, those \underline{does not} work in Blockland}. That certain functionality is lacking or removed, is a common case in Blockland.
+
+\subsection{Variables}
+
+For the variables, there is two types: Global and local. The global can be accessed anywhere. This means that there can only be one global variable with the same name for a program. The local is bound to their respective functions. Therefore, a local variable cannot be accessed outside of its destined function, but its name may be reused in any other function.
+
+A global variable is defined with its prefix of a \important{dollar sign} (\code{\$}).
+
+\begin{lstlisting}[style=ts]
+$global = 4;
+\end{lstlisting}
+
+A local on the other hand is starting with a \important{percentage} (\code{\%}).
+
+\begin{lstlisting}[style=ts]
+%local = 4;
+\end{lstlisting}
+
+Despite their name, they are completely separated and therefore does not affect one another. As mentioned previously, the program is case-insensitive, so that means that a variable with same name, but different cases, will be the same variable.
+
+\begin{lstlisting}[style=ts]
+$GLOBAL = "James";
+\end{lstlisting}
+
+Basically, \code{\$global} is exactly the same as \code{\$GLOBAL}, meaning that when one assign to the second one, the first one get the same value.
+
+Please note that the prefix and the name cannot be separated with a whitespace.
+
+A variable's default value is empty string. So if the variable that is being used have not been set, it will automatically contain an empty string.
+
+\subsection{Operators}
+
+Here is the first changes of how TorqueScript handles syntax apart from the previous algorithm specific lesson. There is of course the default operators previously mentioned works the same. But there is some additions that needs to be mentioned. Some is even used in other languages. These are either used to ease it for the programmer for often used tasks, or due to some internal jinx in the engine.
+
+First is the incrementer. This effectively replaces the \code{+1} that were used frequently in previous lesson.
+
+\begin{lstlisting}[style=ts]
+$var = 1;
+$var++; // 2
+\end{lstlisting}
+
+Same goes for the decrementer.
+
+\begin{lstlisting}[style=ts]
+$var--; // 1
+\end{lstlisting}
+
+Keep in mind that this also gives out the new value. In this example \code{\$var2} will have what \code{\$var} is after it is incremented.
+
+\begin{lstlisting}[style=ts]
+$var2 = $var++; // 2, 2
+\end{lstlisting}
+
+Moving on, there is the \important{not} (\code{!}) operator. This will reverse the boolean value. True becomes false and vice-versa.
+
+\begin{lstlisting}[style=ts]
+$check = true;
+$check = !$check;
+\end{lstlisting}
+
+Then comes the modulo, as mentioned in previous lesson. Due to that it is the same character as the prefix of a local variable, one should take great care to not mix them up and make sure that a space is separated if using the modulo.
+
+Moreover, there is the \important{compound assignment}. This takes the assignment operator and adds a prefix of any of the other operators. That makes it possible to apply an operator to a value on the left side with the value on the right side but still store it in the variable on the left side.
+
+\begin{lstlisting}[style=ts]
+$var = 1;
+$var *= 2; // Same as $var = $var * 2;
+\end{lstlisting}
+
+\subsubsection{Strings}
+
+As we are handling string, there got to be an easy way to concatenate them. In this case, there’s the \important{at-sign} (\code{@}).
+
+\begin{lstlisting}[style=ts]
+$name = "James" @ " Doe";
+\end{lstlisting}
+
+Strings are used quite frequently, so there is plenty of ways to concatenate them. There is \important{space} (\code{SPC}), \important{tab} (\code{TAB}) and \important{newline} (\code{NL}), all of which is doing what their names imply.
+
+\begin{lstlisting}[style=ts]
+$name = "James" SPC "Doe";
+\end{lstlisting}
+
+For the relational operators, they work exactly the same, but there is one difference that for strings, one need to use the \important{string-equal} (\code{\$=}).
+
+\begin{lstlisting}[style=ts]
+$name $= "James" SPC "Doe";
+\end{lstlisting}
+
+The reason for this is that the variable’s value type is converted. The normal operators converts the value on each side to a number, while the string version converts them to strings.
+
+\begin{lstlisting}[style=ts]
+$var1 = "James";
+$var2 = "Jane";
+$var1 == $var2; // This is true (1 == 1)
+$var1 $= $var2; // This is false (James == Jane)
+\end{lstlisting}
+
+There will be a further explanation later on about type conversions.
+
+String operators does not work with compound assignment.
+
+\subsection{Conditions}
+
+These are quite straightforward. Each syntax required a pair of parentheses next to it to work.
+
+\begin{lstlisting}[style=ts]
+$num = 4;
+if ($num == 3)
+	$num = 4;
+else if ($num == 4)
+	$num = 5;
+else
+	$num = 3;
+\end{lstlisting}
+
+But in the middle of this, what happens if one would like to put more more lines in an \code{if}? In comes \important{code-blocks} (\code{\{\}}). Most languages uses this to make sure that a certain part of a code is linked to the code preceding it. Like in the previous lesson, \code{then} and \code{end} was used to mark this.
+
+\begin{lstlisting}[style=ts]
+$num = 4;
+$name = "James";
+if ($num == 3)
+{
+	$num = 4;
+	$name = "James";
+}
+else if ($num == 4)
+{
+	$num = 5;
+	$name = "Janet";
+}
+else
+{
+	$num = 3;
+	$name = "Eric";
+}
+\end{lstlisting}
+
+Code blocks can also be used on their own to mark a block of code as its own. However, TorqueScript does not scope their variables, so code blocks is generally only used for a preceding programming syntax, like \code{if}.
+
+There is one last syntax that is really valuable to use whenever one find out that many static values need to be checked. This is \important{switch-case-default}. It redirects to the correct value. If one gives it a 3, it will check for the \code{case} that contains that value and execute that code block. If none is found, it will run the \code{default} code block.
+
+\begin{lstlisting}[style=ts]
+$num = 4;
+$name = "James";
+switch ($num)
+{
+case 3:
+	$num = 4;
+	$name = "James";
+case 4:
+	$num = 5;
+	$name = "Janet";
+default:
+	$num = 3;
+	$name = "Eric";
+}
+\end{lstlisting}
+
+As can tell, the code is more compact and one understands that \code{\$num} is used throughout the code. Even better, now one may easily add more cases without having to think about duplicate code or mistyping.
+
+There is also the ternary operator, but that is left as an exercise for the reader to understand.
+
+\subsubsection{Strings}
+
+Once again, there is some special handling for strings when it comes to switch-case-default. Instead of \code{switch}, they make use of \code{switch\$}.
+
+\begin{lstlisting}[style=ts]
+$num = -1;
+$name = "James";
+switch$ ($name)
+{
+case "James":
+	$num = 4;
+case "Janet":
+	$num = 5;
+default:
+	$num = 0;
+}
+\end{lstlisting}
+
+\subsection{Loops}
+
+For the loops, this is almost the same. \code{while} works like so.
+
+\begin{lstlisting}[style=ts]
+$i = 1;
+while ($i <= 5)
+{
+	echo($i);
+	$i++;
+}
+\end{lstlisting}
+
+For the \code{for}, however, there is a slight difference which is applied to most programming languages.
+
+\begin{lstlisting}[style=ts]
+for ($i = 1; $i <= 5; $i++)
+{
+	echo($i);
+}
+\end{lstlisting}
+
+\textit{Do not panic}. It could be read like so: For \code{\$i} assigned 1, while \code{\$i} less equal 5, increase \code{\$i} with 1. Basically, this loop will print 1 to 5. It works exactly like the previous loop, but the main difference is that it is more compact and, for most people, easier to read.
+
+In addition, there is two keywords that could be used with loops: \code{break} and \code{continue}. Those are left to the reader as an exercise.
+
+\subsection{Functions}
+
+This is exactly like in the previous lesson, but with the addition of local variables.
+
+\begin{lstlisting}[style=ts]
+function factorial(%n)
+{
+	if (%n <= 1)
+		return %n;
+	return factorial(%n - 1) * %n;
+}
+\end{lstlisting}
+
+As one can see, this looks really easy to do, if one understood the previous lesson.
+
+Calling them is the same way as before.
+
+\begin{lstlisting}[style=ts]
+$var = 4;
+$var = factorial($var);
+\end{lstlisting}
+
+\subsection{Tables or arrays}
+
+For the variables, there is also this way to make arrays. That is, a way to make iterable variables. To make it clear, there is no real arrays in TorqueScript, but it has this delusion that there is. It is actually a way to dynamically modify the variable name with other variables. One assigns a value to an array like so.
+
+\begin{lstlisting}[style=ts]
+$name[1] = "James";
+\end{lstlisting}
+
+This introduces the \important{array} (\code{[]}). This could be applied to any variable, as long as it is placed after the name. What it does is that it creates a new variable name with the parameter.
+
+\begin{lstlisting}[style=ts]
+$name1 = "James";
+\end{lstlisting}
+
+Those are exactly the same. Moreover, one could add more parameters to the array.
+
+\begin{lstlisting}[style=ts]
+$person[1, "name"] = "James";
+\end{lstlisting}
+
+This is essentially like so.
+
+\begin{lstlisting}[style=ts]
+$person1_name = "James";
+\end{lstlisting}
+
+This might look really odd, but that is how it really works. One may apply as many parameters as they wish, and it will concatenate them with an underscore. This way, one could apply it for a loop.
+
+\begin{lstlisting}[style=ts]
+for ($i = 0; $i <= 5; $i++)
+	$var[$i] = $i * $i;
+\end{lstlisting}
+
+As mentioned in a previous section, this is where the exception of naming convention comes in: Due to that one may now use a string, which could include almost any character, means that a variable could have other characters than the previous mentioned ones. However, one could still only access the variable through the means of arrays as the previous naming convention does only not apply within arrays.
+
+Keep in mind that arrays could only be used as long as: there is a variable; there is at least one character at the beginning. The arrays can applied to any variable, as long as these requirements are followed.
+
+\subsection{Objects}
+
+For objects, this starts pretty easy. One create an object like before, but are now restricted to the already defined ones.
+
+\begin{lstlisting}[style=ts]
+$obj = new ScriptObject();
+\end{lstlisting}
+
+This will create a new object called \code{ScriptObject} and assign it to the variable \code{\$obj}. To access its variables, one does like previous mentioned.
+
+\begin{lstlisting}[style=ts]
+$obj.name = "James";
+\end{lstlisting}
+
+Heads up for the missing \code{\$} for the second variable. This is because the \important{dot} (\code{.}) will tell that it should access an object from the left side to get the variable name on the right side. This is then assigned a string.
+
+\subsubsection{Methods}
+
+There is of course more object types. To mention a few that will be used now: \code{SimObject}, \code{SimGroup}, \code{SimSet}, \code{ScriptGroup}. These are used differently depending on what one want to do. Blockland is using them extensively to make handling of other objects easier.
+
+The previous used type \code{ScriptObject}, is just a normal type which is used as the name implies: An object handling script data. Be aware that it does not handle script itself, but the variables that one have defined within it.
+
+Then there is \code{ScriptGroup}. This is where \important{methods} come into play. They are basically functions, but is called through an object. In this case, a \code{ScriptObject} will be created and stored within a \code{ScriptGroup} so it will keep track of it for us.
+
+\begin{lstlisting}[style=ts]
+$obj = new ScriptObject();
+$group = new ScriptObject();
+$group.add($obj);
+\end{lstlisting}
+
+Internally, the value of \code{\$obj} is put into a list that then can be accessed like so.
+
+\begin{lstlisting}[style=ts]
+$group.getCount(); // Amount of objects in group
+$group.getObject(0); // Get first object from group
+\end{lstlisting}
+
+Keep in mind that computers always counts from 0.
+
+How the methods are created is taken up in next lesson.
+
+As an object are created, it takes up room in the memory. To solve this, one should always remove objects that is not used any more by calling its \code{delete} method.
+
+\begin{lstlisting}[style=ts]
+$group.delete();
+\end{lstlisting}
+
+All group objects(\code{SimGroup} and \code{ScriptGroup}) have the ability that whenever they are deleted, they will also delete all objects inside them. Also, whenever an object is added to a group, it is removed from its previous group.
+
+Remember to always clear the variable with its default value of empty string.
+
+\begin{lstlisting}[style=ts]
+$obj = "";
+$group = "";
+\end{lstlisting}
+
+More about these kind of things and why they need to be done, will be weeded out extensively in a future lesson.
+
