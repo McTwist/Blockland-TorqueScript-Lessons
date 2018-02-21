@@ -2,12 +2,14 @@
 \documentclass[11pt]{paper}
 \usepackage{geometry}
 \geometry{a4paper}
+\usepackage[english]{babel}
 
 \usepackage{fancyhdr}
 \usepackage[parfill]{parskip}
 \usepackage[utf8]{inputenc}
 \usepackage[T1]{fontenc}
 \usepackage{graphicx}
+\usepackage{color}
 \usepackage{xcolor}
 
 \usepackage[hyphens]{url}
@@ -18,6 +20,11 @@
 \usepackage{algorithm}
 \usepackage{algorithmicx}
 \usepackage{algpseudocode}
+
+\usepackage{listings}
+
+\usepackage[nottoc]{tocbibind}
+\usepackage{cite}
 
 \graphicspath{{../imgs/}}
 
@@ -31,7 +38,9 @@
 }
 
 % Making naming convention somewhat easier
-% Note: Might later on force to highlight syntax
-\newcommand{\code}[1]{\texttt{#1}}
+\newcommand{\code}[1]{\lstinline[style=ts]!#1!}
 \newcommand{\firstfound}[1]{\textit{#1}}
 \newcommand{\important}[1]{\textbf{#1}}
+
+% Load listing for TorqueScript
+\usepackage{../sty/torquescript}
