@@ -1,0 +1,49 @@
+\section{Unique Identification}
+
+\subsection{Object ID}
+
+First comes the object system in Torque Engine. If one already have noticed, an object in TorqueScript is really a number, or also called identifier(ID for short). That means that any number that is on the left side of the dot will be evaluated as an object.
+
+\begin{lstlisting}[style=ts]
+$obj = new ScriptObject(); // $obj now contains a number
+$obj.getID().getName(); // Calls getName method on object
+\end{lstlisting}
+
+\code{\$obj} will call \code{getID}, which will call \code{getName} in return. As when the object is created, it will actually return a number to be used to identify the object. As the number is a value in a variable, then it could easily be modified as such. Keep in mind that one should never do such a thing.
+
+As objects are normally stored within variables, one should rarely have to use the object ID’s to be able to modify them. However, Blockland actually uses this to be able to get real objects within the world by just looking at them. Go up to an object and look at it. Then type in /getid and in the chat there will be an id, class name and a distance. Using that info in the console for the server and one could easily modify it.
+
+\subsection{Names}
+
+Of course, when scripting, this is generally not needed and the above mentioned approach is only used for debugging purposes. Therefore TorqueScript is able to name its objects.
+
+\begin{lstlisting}[style=ts]
+new ScriptObject(MyObject);
+MyObject.getID();
+\end{lstlisting}
+
+Notice that there is no variable that stores the object this time. That is because that there is first a name set for the object: \code{MyObject}. This could then be used to access the object. One could also set the name on the object with the method \code{setName}. Keep in mind that unless from the previous ID system, there is no one stopping having several objects with the same name. It will simply take the first object it can find. \textbf{It does not access all of the objects with the same name, only one of them.}
+
+It is fully possible to send in a variable value in the first parameter to set the name.
+
+Names are case insensitive. String comparisons is not.
+
+\subsection{Strings}
+
+One might wonder why strings suddenly come up here, but that is because it is important to know about a special usage one need to know about them. And that is that these examples are working exactly the same.
+
+\begin{lstlisting}[style=ts]
+$a = "James";
+$b = James;
+\end{lstlisting}
+
+That is, this is valid syntax and both $a and $b contain the same string. This is because TorqueScript allows for strings to be created if they either: is not syntax; does only contain characters that can be used within variables. This is also reversible.
+
+\begin{lstlisting}[style=ts]
+new ScriptObject("MyObject");
+$obj = MyObject;
+$obj = $obj.getID();
+"MyObject".getID();
+\end{lstlisting}
+
+As previously mentioned, variables in TorqueScript is either number or strings. But in fact, it’s almost always strings, unless otherwise specified. That is, when a normal arithmetic operation is performed, then it will convert the value to a number, if it is not already. In this case, as the name might not contain quotation marks, it will still be converted to a string. It only needs to follow the set rules for a variable name: the first character can only be any character from the latin alphabet or an underscore; contain numbers. If these rules are not followed, then one need to use quotation marks. Keep in mind that this should only be used for object names. Not to create a string.

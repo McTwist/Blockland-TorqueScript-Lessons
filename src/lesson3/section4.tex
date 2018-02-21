@@ -1,0 +1,127 @@
+\section{Namespaces}
+
+The most used functionality within TorqueScript is \firstfound{namespaces}. It is a way to box in parts of a code and then link it to an object. One then uses the operator of \important{namespace} (\code{::}), which is two colons. The name on the left is the name of the namespace and the one on the right is the function. This concatenation is what previous mentioned is called \firstfound{methods}.
+
+\begin{lstlisting}[style=ts]
+function ScriptObject::set(%obj, %value)
+{
+%obj.value = %value;
+}
+\end{lstlisting}
+
+This could easily be called like a regular function, as the namespace operator is part of the name. However, as \code{ScriptObject} already exists as a name, then this method is now added to the object.
+
+\begin{lstlisting}[style=ts]
+$obj = new ScriptObject();
+$obj.set(4);
+\end{lstlisting}
+
+It will try to call the method of set, which is part of the namespace of \code{ScriptObject}. The first variable of all the methods always contains the value that was used to call the method. That means that if a value of an object ID is sent in, the variable will contain that ID; if it actually a name, then that will be used. One could of course call it like a normal function.
+
+\begin{lstlisting}[style=ts]
+ScriptObject::set($obj, 4);
+\end{lstlisting}
+
+\subsection{Variables}
+
+One quick thing that is useful to know when it comes to namespaces and global variables, is that namespaces can be used with them. One just simply separate sections of a variable with the operator and then accesses it like so.
+
+\begin{lstlisting}[style=ts]
+$Pref::OneMod::value = 4;
+\end{lstlisting}
+
+There is some rules around them, and some is a bit complicated to bring up here. But as a rule of thumb, is to use the normal variable convention for each section.
+
+\subsection{Classes}
+
+Of course, one should try to avoid adding methods to existing objects as that will easily clog it. Therefore one could use classes, which basically a mix of names and namespaces. First off, a new unique namespace is created whenever a new name is used left of the operator.
+
+\begin{lstlisting}[style=ts]
+function OneClass::set(%obj, %value)
+{
+	%obj.value = %value;
+}
+\end{lstlisting}
+
+Here is OneClass declared as a new namespace that could then be used to identify it, like ScriptObject was used. If one put it as a name for a new object, it creates a new powerful tool.
+
+\begin{lstlisting}[style=ts]
+$obj = new ScriptObject(OneClass);
+$obj.set(4);
+\end{lstlisting}
+
+This will link the object to both ScriptObject and the new namespace of OneClass. As this might look bothersome as one now forces the object to use an object name, and therefore will make that object reachable from everywhere by using that name. In comes a special member variable that will make use of even more namespaces and limit the object to be local.
+
+\begin{lstlisting}[style=ts]
+$obj = new ScriptObject()
+{
+	class = OneClass;
+};
+$obj.set(4);
+\end{lstlisting}
+
+This variable will do exactly the same thing, but will leave the object unnamed. On top of this, if one needs to add more than one namespace, there is a second variable named \code{superclass}. This brings up the complicated process of \firstfound{packaging} and \firstfound{parents}.
+
+\subsection{Parents}
+
+Now is where most struggles and therefore end up with horrible code. This is the most important part of TorqueScript and it is really powerful. There is two aspects that one need to think about. The first is the process to \firstfound{override} a function. That means that if one wrote a second function of \code{OneClass::set}, it will actually remove the previous declaration and replace it with the new one. In some cases, one could use this to replace previous declared functionality, but then one needs to rewrite the previous functionality if one still wants that to exist.
+In comes \firstfound{overload}, which will wrap around the previous declaration, and then call it in the way needed. It is easily described with an example.
+
+\begin{lstlisting}[style=ts]
+function TwoClass::set(%obj, %value)
+{
+	Parent::set(%obj, %value + 2);
+}
+\end{lstlisting}
+
+This will create the method of the same name but different namespace. When it is called, it will call on the \firstfound{parent} method that this object has. These are called in a specific order, testing all of the ways that is possible: Name, class, superclass and lastly the head object.
+
+\begin{lstlisting}[style=ts]
+$obj = new ScriptObject()
+{
+	class = TwoClass;
+	superclass = OneClass;
+};
+$obj.set(4);
+$obj.value; // 6
+\end{lstlisting}
+
+As previously mentioned, in this example the first one called is \code{TwoClass::set} and then \code{OneClass::set} is called from there as its parent. This could easily get confusing, but playing around with it will make it easier and eventually one might wrap around it.
+
+Parents also works for normal functions. Keep in mind that one normally does not use parent this way, the biggest usage is in next section.
+
+\subsection{Packages}
+
+On this arises a question: What if one would like to overload an existing function instead of a method? Reusing the same name as the function will just override the previous declaration, rendering the whole process useless. Here is where \firstfound{packages} is the best tool to use.
+One create a package by using the syntax \code{package} along with a name for it. Then scope around the functions that one want to overload.
+
+\begin{lstlisting}[style=ts]
+function print(%text)
+{
+	echo(%text);
+}
+
+package OnePackage
+{
+	Function print(%text)
+	{
+		Parent::print("Hello" SPC %text);
+	}
+};
+\end{lstlisting}
+
+Then one requires to activate the package. This is a way to easily deactivate functionality that will not be used in some parts of the code. An example is a client Add-On only used when online at a server.
+
+\begin{lstlisting}[style=ts]
+activatePackage(OnePackage);
+\end{lstlisting}
+
+And then use it normally.
+
+\begin{lstlisting}[style=ts]
+print("James");
+\end{lstlisting}
+
+This prints "Hello James" in the console.
+
+Of course, this could also be used for methods.
