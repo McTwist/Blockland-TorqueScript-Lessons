@@ -180,7 +180,7 @@ Functions are code blocks that one could send in certain variables and execute a
 	\begin{algorithmic}[1]
 		\Function{add}{$x$, $y$}
 			\State $z \gets x + y$
-			\Return $z$
+			\State \Return $z$
 		\EndFunction
 	\end{algorithmic}
 \end{algorithm}
@@ -203,9 +203,9 @@ Keep in mind here that the variables within add does not affect the variables ou
 	\begin{algorithmic}[1]
 		\Function{sum}{$a$}
 			\If{$a < 1$}
-				\Return $a$
+				\State \Return $a$
 			\EndIf
-			\Return \Call{sum}{$a - 1$}$ + a$
+			\State \Return \Call{sum}{$a - 1$}$ + a$
 		\EndFunction
 	\end{algorithmic}
 \end{algorithm}
@@ -222,9 +222,9 @@ To make this a bit simpler to understand, the previous section example will be u
 	\begin{algorithmic}[1]
 		\Function{factorial}{$n$}
 			\If{$n \leq 1$}
-				\Return $n$
+				\State \Return $n$
 			\EndIf
-			\Return \Call{factorial}{$n - 1$}$ * n$
+			\State \Return \Call{factorial}{$n - 1$}$ * n$
 		\EndFunction
 	\end{algorithmic}
 \end{algorithm}
